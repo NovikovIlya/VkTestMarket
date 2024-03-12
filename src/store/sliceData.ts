@@ -21,8 +21,16 @@ export const sliceData = createSlice({
     changeQuantity(state, action) {
       const product = state.products.find((product:any) => product.id === action.payload.id);
       if (product) {
-        // @ts-ignore
-        product.count = action.payload.newQuantity;
+        
+        if(action.payload.operation === "plus"){
+          // @ts-ignore
+          product.count =  product.count + 1
+        }
+        if(action.payload.operation === "minus"){
+          // @ts-ignore
+          product.count = product.count - 1;
+        }
+        
         state.totalPrice = state.products.reduce((acc, product:any) => acc + product.price * product.count, 0);
       }
     },
@@ -46,5 +54,5 @@ export const sliceData = createSlice({
   },
 });
 
-export const {  updateTotalPrice } = sliceData.actions;
+export const {  updateTotalPrice ,changeQuantity} = sliceData.actions;
 export default sliceData.reducer;

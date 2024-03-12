@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
-import {
-  EllipsisOutlined,
-} from "@ant-design/icons";
+import { EllipsisOutlined } from "@ant-design/icons";
 import { Avatar, Card } from "antd";
+import { useAppDispatch } from "../../hooks/redux";
+import { changeQuantity } from "../../store/sliceData";
 
 const { Meta } = Card;
 
-const CardItem = ({ image, name, description, price, count  }: any) => {
-  const [itemCount, setItemCount] = useState(count); // State for item count
+const CardItem = ({ id, image, name, description, price, count }: any) => {
+ 
+  const dispatch = useAppDispatch();
 
+  const plus = () => {
+    dispatch(changeQuantity({ id: id, operation: "plus" }));
+  };
 
-
-
+  const minus = () => {
+    if(count < 2){
+      return
+    }
+    dispatch(changeQuantity({ id: id, operation: "minus" }));
+  };
 
   return (
     <Card
@@ -26,7 +34,8 @@ const CardItem = ({ image, name, description, price, count  }: any) => {
       actions={[
         `Стоимость:  ${price}`,
         <div>
-          <span >-</span> <span>Кол-во: {count}</span> <span >+</span>
+          <span onClick={minus}>-</span> <span>Кол-во: {count}</span>{" "}
+          <span onClick={plus}>+</span>
         </div>,
         <EllipsisOutlined key="ellipsis" />,
       ]}
