@@ -25,7 +25,7 @@ function Basket() {
       <div className={styles.container}>
         <div>
           {data?.map((item: any) => (
-            <CardItem key={item.id} id={item.id} image={item.images[0]} name={item.title} description={item.description} price={item.price} />
+            <CardItem key={item.id} id={item.id} image={item.images[0]} name={item.title} description={item.description} price={item.price} count={item.count} />
           ))}
         </div>
         <div>

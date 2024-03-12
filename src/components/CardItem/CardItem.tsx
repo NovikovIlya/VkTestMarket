@@ -6,7 +6,7 @@ import { Avatar, Card } from "antd";
 
 const { Meta } = Card;
 
-const CardItem = ({ image, name, description, price, count = 1 }: any) => {
+const CardItem = ({ image, name, description, price, count  }: any) => {
   const [itemCount, setItemCount] = useState(count); // State for item count
 
 
