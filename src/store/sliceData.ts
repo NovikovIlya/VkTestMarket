@@ -1,17 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios'
+import axios from "axios";
 
-export const getData = createAsyncThunk('post/getData', async () => {
-  const { data } = await axios.get('https://dummyjson.com/products?limit=6');
-  return data.products.map((item:any)=>{
-    return {...item,count:1}
+export const getData = createAsyncThunk("post/getData", async () => {
+  const { data } = await axios.get("https://dummyjson.com/products?limit=6");
+  return data.products.map((item: any) => {
+    return { ...item, count: 1 };
   });
 });
 
 const initialState = {
   products: [],
   totalPrice: 0,
-  isLoad:false,
+  isLoad: false,
 };
 
 export const sliceData = createSlice({
@@ -19,23 +19,35 @@ export const sliceData = createSlice({
   initialState,
   reducers: {
     changeQuantity(state, action) {
-      const product = state.products.find((product:any) => product.id === action.payload.id);
+      const product = state.products.find(
+        (product: any) => product.id === action.payload.id
+      );
       if (product) {
-        
-        if(action.payload.operation === "plus"){
+        if (action.payload.operation === "plus") {
           // @ts-ignore
-          product.count =  product.count + 1
+          product.count = product.count + 1;
         }
-        if(action.payload.operation === "minus"){
+        if (action.payload.operation === "minus") {
           // @ts-ignore
           product.count = product.count - 1;
         }
-        
-        state.totalPrice = state.products.reduce((acc, product:any) => acc + product.price * product.count, 0);
+
+        state.totalPrice = state.products.reduce(
+          (acc, product: any) => acc + product.price * product.count,
+          0
+        );
       }
     },
     updateTotalPrice(state) {
-      state.totalPrice = state.products.reduce((acc, product:any) => acc + product.price * product.count, 0);
+      state.totalPrice = state.products.reduce(
+        (acc, product: any) => acc + product.price * product.count,
+        0
+      );
+    },
+    deleteProduct(state, action) {
+      state.products = state.products.filter(
+        (product: any) => product.id !== action.payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -54,5 +66,6 @@ export const sliceData = createSlice({
   },
 });
 
-export const {  updateTotalPrice ,changeQuantity} = sliceData.actions;
+export const { updateTotalPrice, changeQuantity, deleteProduct } =
+  sliceData.actions;
 export default sliceData.reducer;
