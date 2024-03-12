@@ -63,7 +63,7 @@ const CardItem = ({ id, image, name, description, price, count }: any) => {
       >
         <Meta title={name} description={description} />
         <div className={styles.price}>
-          <div className={styles.priceChild}>Стоимость: {price}</div>
+          <div className={styles.priceChild}>Стоимость: {price} ₽</div>
           <div
             onClick={() => deleteProductFn(id)}
             className={styles.deleteIcon}

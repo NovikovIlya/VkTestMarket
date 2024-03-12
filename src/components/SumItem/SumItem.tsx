@@ -9,7 +9,7 @@ function SumItem() {
     <>
     <Card className={styles.cartStyle}>
       <div className={styles.container}>
-       <div className={styles.text}> Итого:</div> <div className={styles.price}>{totalPrice}</div>
+       <div className={styles.text}> Итого:</div> <div className={styles.price}>{totalPrice} ₽</div>
       </div>
       </Card>
     </>
