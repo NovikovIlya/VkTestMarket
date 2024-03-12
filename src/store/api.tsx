@@ -8,7 +8,7 @@ export const CartApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com/products' }),
   tagTypes: ['Fetch'],
   endpoints: (builder) => ({
-    fetchCart: builder.query<any, string>({
+    fetchCart: builder.query<any, any>({
       query: () => ({
         url: `?limit=6`,
       }),
