@@ -1,0 +1,25 @@
+.cartStyle{
+    
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    position: sticky;
+    top:10px
+
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+.text{
+    font-size: 20px;
+    font-weight: bold;
+}
+.price{
+    font-size: 20px;
+    font-weight: bold;
+    color: #10C44C;
+}
+@media screen and (max-width:600px){
+    .cartStyle{
+        right:4px
+    }
+}

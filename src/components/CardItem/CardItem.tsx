@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { DeleteOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import styles from "./CardItem.module.css";
-import { Card, Button, message } from "antd";
+import { Card, message } from "antd";
 import { useAppDispatch } from "../../hooks/redux";
 import { changeQuantity, deleteProduct } from "../../store/sliceData";
 
@@ -15,6 +14,10 @@ const CardItem = ({ id, image, name, description, price, count }: any) => {
     messageApi.info("Можно добавить только 10 товаров!");
   };
 
+  const infoMinus = () => {
+    messageApi.info("Должен быть хотя бы один товар!");
+  };
+
   const plus = () => {
     if (count > 9) {
       info();
@@ -25,13 +28,13 @@ const CardItem = ({ id, image, name, description, price, count }: any) => {
 
   const minus = () => {
     if (count < 2) {
+      infoMinus()
       return;
     }
     dispatch(changeQuantity({ id: id, operation: "minus" }));
   };
 
   const deleteProductFn = (id: number) => {
-    console.log(id);
     dispatch(deleteProduct({ id: id }));
   };
 
@@ -52,7 +55,7 @@ const CardItem = ({ id, image, name, description, price, count }: any) => {
           <div className={styles.znak} onClick={minus}>
             -
           </div>,
-          <div className={styles.znak}>Кол-во: {count} </div>,
+          <div className={styles.znak}>{count} </div>,
           <div className={styles.znak} onClick={plus}>
             +
           </div>,
