@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 
 export const CartApi = createApi({
-  reducerPath: 'apiMovies',
+  reducerPath: 'sliceDataApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com/products' }),
   tagTypes: ['Fetch'],
   endpoints: (builder) => ({
