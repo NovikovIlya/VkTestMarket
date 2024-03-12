@@ -11,7 +11,8 @@ export const getData = createAsyncThunk("post/getData", async () => {
 const initialState = {
   products: [],
   totalPrice: 0,
-  isLoad: false,
+  isLoad: true,
+  isError:false,
 };
 
 export const sliceData = createSlice({
@@ -54,14 +55,17 @@ export const sliceData = createSlice({
     builder.addCase(getData.pending, (state) => {
       state.products = [];
       state.isLoad = true;
+      state.isError = false;
     });
     builder.addCase(getData.fulfilled, (state, action) => {
       state.products = action.payload;
       state.isLoad = false;
+      state.isError = false;
     });
     builder.addCase(getData.rejected, (state) => {
       state.products = [];
       state.isLoad = false;
+      state.isError = true;
     });
   },
 });

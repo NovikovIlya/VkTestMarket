@@ -18,8 +18,9 @@
     font-weight: bold;
     color: #10C44C;
 }
-@media screen and (max-width:600px){
-    .cartStyle{
-        right:4px
+@media screen and (max-width:600px) {
+
+    .text,.price{
+        font-size: 10px;
     }
 }
