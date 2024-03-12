@@ -14,9 +14,20 @@
     padding: 5px;
     color:white;
 }
+.znak1{
+    font-size: 20px;
+    user-select: none;
+    transition: 1s;
+}
 .znak{
     font-size: 20px;
     user-select: none;
+    transition: 1s;
+}
+.znak:hover{
+    transition: 1s;
+    scale: 1.3;
+    color:black
 }
 .deleteIcon{
     font-size: 20px;
@@ -24,7 +35,9 @@
     background-color: #F7F8F9;
     padding: 5px;
     border-radius: 10px;
+    transition: 1s;
 }
 .deleteIcon:hover{
+    transition: 1s;
     background-color: #cecece;
 }

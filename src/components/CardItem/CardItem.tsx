@@ -55,7 +55,7 @@ const CardItem = ({ id, image, name, description, price, count }: any) => {
           <div className={styles.znak} onClick={minus}>
             -
           </div>,
-          <div className={styles.znak}>{count} </div>,
+          <div className={styles.znak1}>{count} </div>,
           <div className={styles.znak} onClick={plus}>
             +
           </div>,
