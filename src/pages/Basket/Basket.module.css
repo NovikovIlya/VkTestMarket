@@ -22,3 +22,12 @@
     align-items: center;
     font-size: 10px;
 }
+.notData{
+    position: absolute;
+    top:10%;
+    display:flex;
+    flex-direction:column;
+}
+.notText{
+    text-align: center;
+}
