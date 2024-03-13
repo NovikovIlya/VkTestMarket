@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Product } from "../types/types";
+import { InitialType, Product } from "../types/types";
 
 export const getData = createAsyncThunk("post/getData", async () => {
   const { data } = await axios.get("https://dummyjson.com/products?limit=6");
@@ -9,12 +9,6 @@ export const getData = createAsyncThunk("post/getData", async () => {
   });
 });
 
-type InitialType = {
-  products: Product[],
-  totalPrice: number,
-  isLoad: boolean,
-  isError:boolean,
-}
 
 const initialState: InitialType = {
   products: [],
@@ -27,30 +21,35 @@ export const sliceData = createSlice({
   name: "sliceData",
   initialState,
   reducers: {
+    // Изменения общей цены
     changeQuantity(state, action) {
+      // Находим продукт
       const product: Product | undefined = state.products.find(
         (product: any) => product.id === action.payload.id
       );
       if (product) {
+        // Меняем кол-во на + или -
         if (action.payload.operation === "plus") {
           product.count = (product.count ? product.count : 1) + 1;
         }
         if (action.payload.operation === "minus") {
           product.count = (product.count ? product.count : 1) - 1;
         }
-
+        // Подсчитываем итог
         state.totalPrice = state.products.reduce(
           (acc, product:Product) => acc + product.price * (product.count ? product.count : 1),
           0
         );
       }
     },
+    // Подсчет при первом рендере
     updateTotalPrice(state) {
       state.totalPrice = state.products.reduce(
         (acc, product: any) => acc + product.price * product.count,
         0
       );
     },
+    // Удаление товара
     deleteProduct(state, action) {
       state.products = state.products.filter(
         (product: any) => product.id !== action.payload.id
@@ -58,6 +57,7 @@ export const sliceData = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Получение товаров
     builder.addCase(getData.pending, (state) => {
       state.products = [];
       state.isLoad = true;

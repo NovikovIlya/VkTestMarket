@@ -3,13 +3,22 @@ import styles from "./CardItem.module.css";
 import { Card, message } from "antd";
 import { useAppDispatch } from "../../hooks/redux";
 import { changeQuantity, deleteProduct } from "../../store/sliceData";
+import { PropsCardPartial } from "../../types/types";
 
 const { Meta } = Card;
 
-const CardItem = ({ id, image, name, description, price, count }: any) => {
+const CardItem = ({
+  id = 1,
+  image,
+  name,
+  description,
+  price,
+  count,
+}: PropsCardPartial) => {
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useAppDispatch();
 
+  // Всплывающие сообщения
   const info = () => {
     messageApi.info("Можно добавить только 10 товаров!");
   };
@@ -18,8 +27,9 @@ const CardItem = ({ id, image, name, description, price, count }: any) => {
     messageApi.info("Должен быть хотя бы один товар!");
   };
 
+  // Функции добавления/удаления кол-ва товаров
   const plus = () => {
-    if (count > 9) {
+    if (count && count > 9) {
       info();
       return;
     }
@@ -27,13 +37,14 @@ const CardItem = ({ id, image, name, description, price, count }: any) => {
   };
 
   const minus = () => {
-    if (count < 2) {
-      infoMinus()
+    if (count && count < 2) {
+      infoMinus();
       return;
     }
     dispatch(changeQuantity({ id: id, operation: "minus" }));
   };
 
+  // Локальное удаление товара
   const deleteProductFn = (id: number) => {
     dispatch(deleteProduct({ id: id }));
   };

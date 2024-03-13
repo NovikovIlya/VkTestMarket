@@ -12,10 +12,12 @@ function Basket() {
   const error = useAppSelector((state) => state.sliceData.isError);
   const dispatch = useAppDispatch();
 
+  // Запрос на получение данных
   useEffect(() => {
     dispatch(getData());
   }, []);
 
+  // Подсчет итоговой суммы
   useEffect(() => {
     dispatch(updateTotalPrice());
   }, [data, dispatch]);
@@ -44,17 +46,16 @@ function Basket() {
                 <SumItem />
               </div>
             )}
-
           </div>
           {data.length === 0 && (
-              <div className={styles.notData}>
-                <Empty description={false} />
-                <div className={styles.notText}>Нет данных</div>
-              </div>
-            )}
+            <div className={styles.notData}>
+              <Empty description={false} />
+              <div className={styles.notText}>Нет данных</div>
+            </div>
+          )}
         </>
       )}
-      
+
       {load && (
         <div className={styles.loading}>
           <Spin />
