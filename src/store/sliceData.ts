@@ -1,14 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Product } from "../types/types";
 
 export const getData = createAsyncThunk("post/getData", async () => {
   const { data } = await axios.get("https://dummyjson.com/products?limit=6");
-  return data.products.map((item: any) => {
+  return data.products.map((item: Product) => {
     return { ...item, count: 1 };
   });
 });
 
-const initialState = {
+type InitialType = {
+  products: Product[],
+  totalPrice: number,
+  isLoad: boolean,
+  isError:boolean,
+}
+
+const initialState: InitialType = {
   products: [],
   totalPrice: 0,
   isLoad: true,
@@ -20,21 +28,19 @@ export const sliceData = createSlice({
   initialState,
   reducers: {
     changeQuantity(state, action) {
-      const product = state.products.find(
+      const product: Product | undefined = state.products.find(
         (product: any) => product.id === action.payload.id
       );
       if (product) {
         if (action.payload.operation === "plus") {
-          // @ts-ignore
-          product.count = product.count + 1;
+          product.count = (product.count ? product.count : 1) + 1;
         }
         if (action.payload.operation === "minus") {
-          // @ts-ignore
-          product.count = product.count - 1;
+          product.count = (product.count ? product.count : 1) - 1;
         }
 
         state.totalPrice = state.products.reduce(
-          (acc, product: any) => acc + product.price * product.count,
+          (acc, product:Product) => acc + product.price * (product.count ? product.count : 1),
           0
         );
       }
