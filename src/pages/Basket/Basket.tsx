@@ -4,7 +4,7 @@ import CardItem from "../../components/CardItem/CardItem";
 import SumItem from "../../components/SumItem/SumItem";
 import { Spin, Empty } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { getData, updateTotalPrice } from "../../store/sliceData";
+import { getData } from "../../store/sliceData";
 
 function Basket() {
   const data = useAppSelector((state) => state.sliceData.products);
@@ -17,10 +17,6 @@ function Basket() {
     dispatch(getData());
   }, []);
 
-  // Подсчет итоговой суммы
-  useEffect(() => {
-    dispatch(updateTotalPrice());
-  }, [data, dispatch]);
 
   return (
     <>

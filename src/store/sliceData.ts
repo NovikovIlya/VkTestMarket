@@ -42,13 +42,6 @@ export const sliceData = createSlice({
         );
       }
     },
-    // Подсчет при первом рендере
-    updateTotalPrice(state) {
-      state.totalPrice = state.products.reduce(
-        (acc, product: any) => acc + product.price * product.count,
-        0
-      );
-    },
     // Удаление товара
     deleteProduct(state, action) {
       state.products = state.products.filter(
@@ -67,6 +60,11 @@ export const sliceData = createSlice({
       state.products = action.payload;
       state.isLoad = false;
       state.isError = false;
+      // Подсчет первоначального итого
+      state.totalPrice = state.products.reduce(
+        (acc, product: any) => acc + product.price * product.count,
+        0
+      );
     });
     builder.addCase(getData.rejected, (state) => {
       state.products = [];
@@ -76,6 +74,6 @@ export const sliceData = createSlice({
   },
 });
 
-export const { updateTotalPrice, changeQuantity, deleteProduct } =
+export const {  changeQuantity, deleteProduct } =
   sliceData.actions;
 export default sliceData.reducer;
