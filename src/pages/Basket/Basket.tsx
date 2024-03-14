@@ -8,9 +8,7 @@ import { getData } from "../../store/sliceData";
 import { Product } from "../../types/types";
 
 function Basket() {
-  const data = useAppSelector((state) => state.sliceData.products);
-  const load = useAppSelector((state) => state.sliceData.isLoad);
-  const error = useAppSelector((state) => state.sliceData.isError);
+  const { products, isLoad, isError } = useAppSelector((state) => state.sliceData);
   const dispatch = useAppDispatch();
 
   // Запрос на получение данных
@@ -21,12 +19,12 @@ function Basket() {
 
   return (
     <>
-      {!load && !error && (
+      {!isLoad && !isError && (
         <>
           <div className={styles.container}>
             <div>
-              {data.length > 0 &&
-                data?.map((item: Product) => (
+              {products.length > 0 &&
+                products?.map((item: Product) => (
                   <CardItem
                     key={item.id}
                     id={item.id}
@@ -38,13 +36,13 @@ function Basket() {
                   />
                 ))}
             </div>
-            {data.length > 0 && (
+            {products.length > 0 && (
               <div className={styles.right}>
                 <SumItem />
               </div>
             )}
           </div>
-          {data.length === 0 && (
+          {products.length === 0 && (
             <div className={styles.notData}>
               <Empty description={false} />
               <div className={styles.notText}>Нет данных</div>
@@ -53,13 +51,13 @@ function Basket() {
         </>
       )}
 
-      {load && (
+      {isLoad && (
         <div className={styles.loading}>
           <Spin />
           <div>Загрузка...</div>
         </div>
       )}
-      {error && (
+      {isError && (
         <div className={styles.error}>Произошла ошибка, попробуйте позже</div>
       )}
     </>
