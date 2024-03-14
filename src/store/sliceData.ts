@@ -25,7 +25,7 @@ export const sliceData = createSlice({
     changeQuantity(state, action) {
       // Находим продукт
       const product: Product | undefined = state.products.find(
-        (product: any) => product.id === action.payload.id
+        (product: Product) => product.id === action.payload.id
       );
       if (product) {
         // Меняем кол-во на + или -
@@ -45,7 +45,7 @@ export const sliceData = createSlice({
     // Удаление товара
     deleteProduct(state, action) {
       state.products = state.products.filter(
-        (product: any) => product.id !== action.payload.id
+        (product: Product) => product.id !== action.payload.id
       );
     },
   },

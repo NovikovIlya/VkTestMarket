@@ -5,6 +5,7 @@ import SumItem from "../../components/SumItem/SumItem";
 import { Spin, Empty } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { getData } from "../../store/sliceData";
+import { Product } from "../../types/types";
 
 function Basket() {
   const data = useAppSelector((state) => state.sliceData.products);
@@ -25,7 +26,7 @@ function Basket() {
           <div className={styles.container}>
             <div>
               {data.length > 0 &&
-                data?.map((item: any) => (
+                data?.map((item: Product) => (
                   <CardItem
                     key={item.id}
                     id={item.id}
